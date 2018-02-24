@@ -45,6 +45,8 @@ public class DTO {
 ```
 ### Usage
 
+Validate Javax Validations Constraints and NullSafe.
+
 ```java
 @Component
 public class MyComponent {
@@ -56,6 +58,8 @@ public class MyComponent {
 }
 ```
 
+Validate Javax Validations Constraints only.
+
 ```java
 @Component
 public class MyComponent {
@@ -66,6 +70,7 @@ public class MyComponent {
     }
 }
 ```
+Validate NullSafe arguments only.
 
 ```java
 @Component
@@ -78,19 +83,7 @@ public class MyComponent {
 }
 ```
 
-```java
-@Service
-public class MyServiceImpl implements MyService {
-
-    @Override
-    @ServiceValidation
-    public void doSomething(DTO dto) {
-
-    }
-}
-```
-
-Don't do that! ¬¬
+### Don't do that! ¬¬
 
 ```java
 @Component
