@@ -1,6 +1,6 @@
-# Service Validation with @Valid
+# Service Validation
 
-A DTO validation with `@Valid` in service layer using Aspect.
+NullSafe and DTO validation for Javax Validation in service layer using Aspect.
 
 
 ## Build and Install
