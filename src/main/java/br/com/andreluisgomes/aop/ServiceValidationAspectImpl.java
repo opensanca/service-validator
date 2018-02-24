@@ -18,9 +18,10 @@ import java.util.Set;
 @Component
 public class ServiceValidationAspectImpl {
 
+    public static final String METHOD_ARGUMENTS_CANNOT_BE_NULL = "Method arguments cannot be null!";
+
     @Pointcut("@annotation(serviceValidation)")
-    public void annotationPointCutDefinition(ServiceValidation serviceValidation){
-    }
+    public void annotationPointCutDefinition(ServiceValidation serviceValidation){ }
 
     @After("annotationPointCutDefinition(serviceValidation)")
     public void valid(JoinPoint joinPoint, ServiceValidation serviceValidation) {
@@ -31,7 +32,7 @@ public class ServiceValidationAspectImpl {
             for (int argIndex = 0; argIndex < args.length; argIndex++) {
 
                 if(args[argIndex] == null)
-                    throw new RuntimeException("Method arguments cannot be null!");
+                    throw new RuntimeException(METHOD_ARGUMENTS_CANNOT_BE_NULL);
             }
         }
 
@@ -47,9 +48,7 @@ public class ServiceValidationAspectImpl {
 
                 if (!violations.isEmpty())
                     throw new RuntimeException();
-
             }
         }
-
     }
 }

@@ -2,7 +2,7 @@
 
 NullSafe and DTO validation for Javax Validation in service layer using Aspect.
 
-##Spring Boot projects
+## Spring Boot projects
 
 Service Validation provides a `ServiceValidationAutoConfiguration.class` that allowed Auto Configuration mechanism.
 
@@ -95,8 +95,8 @@ public class MyComponent {
 @Component
 public class MyComponent {
 
-    @ServiceValidation(nullSafe = false, javaxValidation = false)
-    public void doSomething(DTO dto) {
+    @ServiceValidation(nullSafe = false, javaxValidation = false) //Don't do that!
+    public void youDontNeedThis(DTO dto) {
 
     }
 }
