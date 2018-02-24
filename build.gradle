@@ -16,7 +16,6 @@ dependencies {
     compile 'javax.validation:validation-api:1.1.0.Final'
     compileOnly 'org.springframework:spring-context:4.3.14.RELEASE'
 
-    testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.5.10.RELEASE'
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.10.RELEASE'
 }

@@ -2,6 +2,12 @@
 
 NullSafe and DTO validation for Javax Validation in service layer using Aspect.
 
+##Spring Boot projects
+
+Service Validation provides a `ServiceValidationAutoConfiguration.class` that allowed Auto Configuration mechanism.
+
+>Spring Boot auto-configuration attempts to automatically configure your Spring application based on the jar dependencies that you have added. 
+><cite>https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-auto-configuration.html</cite> 
 
 ## Build and Install
 
