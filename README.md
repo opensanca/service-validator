@@ -9,7 +9,7 @@ A DTO validation with `@Valid` in service layer using Aspect.
 $ ./gradlew clean build
 ```
 
-## Usage
+## Dependency
 
 ```xml
 <dependency>
@@ -43,25 +43,63 @@ public class DTO {
     }
 }
 ```
+### Usage
 
 ```java
 @Component
 public class MyComponent {
 
     @ServiceValidation
-    public void doSomething(@Valid DTO dto) {
+    public void doSomething(final DTO dto) {
 
     }
 }
 ```
+
+```java
+@Component
+public class MyComponent {
+
+    @ServiceValidation(nullSafe = false)
+    public void doSomething(final DTO dto) {
+
+    }
+}
+```
+
+```java
+@Component
+public class MyComponent {
+
+    @ServiceValidation(javaxValidation = false)
+    public void doSomething(final DTO dto) {
+
+    }
+}
+```
+
 ```java
 @Service
 public class MyServiceImpl implements MyService {
 
     @Override
     @ServiceValidation
-    public void doSomething(@Valid DTO dto) {
+    public void doSomething(DTO dto) {
 
     }
 }
 ```
+
+Don't do that! ¬¬
+
+```java
+@Component
+public class MyComponent {
+
+    @ServiceValidation(nullSafe = false, javaxValidation = false)
+    public void doSomething(DTO dto) {
+
+    }
+}
+```
+
