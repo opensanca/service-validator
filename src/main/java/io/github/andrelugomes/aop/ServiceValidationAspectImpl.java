@@ -1,6 +1,6 @@
-package br.com.andreluisgomes.aop;
+package io.github.andrelugomes.aop;
 
-import br.com.andreluisgomes.annotation.ServiceValidation;
+import io.github.andrelugomes.annotation.ServiceValidation;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;

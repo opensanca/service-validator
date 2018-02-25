@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=br.com.andreluisgomes.ServiceValidationAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.github.andrelugomes.ServiceValidationAutoConfiguration

@@ -1,9 +1,9 @@
-package br.com.andreluisgomes;
+package io.github.andrelugomes;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan("br.com.andreluisgomes")
+@ComponentScan("io.github.andrelugomes")
 public class ServiceValidationAutoConfiguration {
 }

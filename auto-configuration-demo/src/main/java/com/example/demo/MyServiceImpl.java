@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import br.com.andreluisgomes.annotation.ServiceValidation;
+import io.github.andrelugomes.annotation.ServiceValidation;
 import org.springframework.stereotype.Service;
 
 @Service

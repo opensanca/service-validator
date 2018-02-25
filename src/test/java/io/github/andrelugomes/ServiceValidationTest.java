@@ -1,4 +1,4 @@
-package br.com.andreluisgomes;
+package io.github.andrelugomes;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

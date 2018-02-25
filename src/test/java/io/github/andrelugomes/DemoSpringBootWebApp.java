@@ -1,6 +1,6 @@
-package br.com.andreluisgomes;
+package io.github.andrelugomes;
 
-import br.com.andreluisgomes.annotation.ServiceValidation;
+import io.github.andrelugomes.annotation.ServiceValidation;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;

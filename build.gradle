@@ -1,4 +1,4 @@
-group 'br.com.andreluisgomes'
+group 'io.github.andrelugomes'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'

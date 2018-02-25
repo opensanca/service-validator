@@ -1,4 +1,4 @@
-package br.com.andreluisgomes.annotation;
+package io.github.andrelugomes.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
