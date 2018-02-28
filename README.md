@@ -19,14 +19,14 @@ $ ./gradlew clean build
 
 ```xml
 <dependency>
-    <groupId>br.com.andreluisgomes</groupId>
+    <groupId>io.github.andrelugomes</groupId>
     <artifactId>service-validator</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
 ```groovy
-compile 'br.com.andreluisgomes:service-validator:1.0-SNAPSHOT'
+compile 'io.github.andrelugomes:service-validator:1.0.0'
 ```
 
 ### DTO
