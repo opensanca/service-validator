@@ -12,7 +12,7 @@ Service Validation provides a `ServiceValidationAutoConfiguration.class` that al
 ## Build and Install
 
 ```bash
-$ ./gradlew clean build
+$ ./mvnw clean install
 ```
 
 ## Dependency
