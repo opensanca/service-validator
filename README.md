@@ -95,7 +95,7 @@ public class MyComponent {
 @Component
 public class MyComponent {
 
-    @ServiceValidation(nullSafe = false, javaxValidation = false) //Don't do that!
+    @ServiceValidation(nullSafe = false, javaxValidation = false) //Don't do this!
     public void youDontNeedThis(DTO dto) {
 
     }
