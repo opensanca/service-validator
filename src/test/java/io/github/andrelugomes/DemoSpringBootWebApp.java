@@ -41,7 +41,6 @@ class MyComponent {
 
     @ServiceValidation(nullSafe = false)
     public DTO nullSafeFalse(final DTO dto) {
-        String teste = "teste";
         return dto;
     }
 
