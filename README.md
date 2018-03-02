@@ -21,12 +21,12 @@ $ ./mvnw clean install
 <dependency>
     <groupId>io.github.andrelugomes</groupId>
     <artifactId>service-validator</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
 ```groovy
-compile 'io.github.andrelugomes:service-validator:1.0.0'
+compile 'io.github.andrelugomes:service-validator:1.0.1'
 ```
 
 ### DTO
@@ -89,7 +89,7 @@ public class MyComponent {
 }
 ```
 
-### Don't do that! ¬¬
+### Don't do this! ¬¬
 
 ```java
 @Component
