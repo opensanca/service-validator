@@ -6,6 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -18,7 +26,7 @@ public class ServiceValidationTest {
     @Autowired
     private MyService service;
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = ConstraintViolationException.class)
     public void shouldValidateJavax() {
 
         component.defaultValidation(new DTO());
@@ -77,6 +85,18 @@ public class ServiceValidationTest {
     public void shouldValidateNullForMultiplesJavaTypes() {
 
         service.getLong(null, "2");
+    }
+
+    @Test
+    public void shouldVerifyConstraintViolationsOnCatch(){
+        try {
+            component.defaultValidation(new DTO());
+        } catch (ConstraintViolationException e) {
+            List<ConstraintViolation> violations = new ArrayList<>(e.getConstraintViolations());
+
+            assertThat(violations).hasSize(1);
+            assertThat(violations.get(0).getMessage()).isEqualToIgnoringCase("may not be null");
+        }
     }
 }
 

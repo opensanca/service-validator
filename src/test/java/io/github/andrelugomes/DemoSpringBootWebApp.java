@@ -1,11 +1,13 @@
 package io.github.andrelugomes;
 
 import io.github.andrelugomes.annotation.ServiceValidation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotNull;
 
 @SpringBootApplication
@@ -39,6 +41,7 @@ class MyComponent {
 
     @ServiceValidation(nullSafe = false)
     public DTO nullSafeFalse(final DTO dto) {
+        String teste = "teste";
         return dto;
     }
 
@@ -60,12 +63,13 @@ interface MyService {
     String getStringByName(String name);
 
     Long getLong(Long number, String string);
-
-
 }
 
 @Service
 class MyServiceImpl implements MyService {
+
+    @Autowired
+    private MyComponent component;
 
     @Override
     @ServiceValidation
