@@ -1,14 +1,13 @@
 package io.github.andrelugomes;
 
+import javax.validation.constraints.NotNull;
+
 import io.github.andrelugomes.annotation.ServiceValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
-import javax.validation.ConstraintViolationException;
-import javax.validation.constraints.NotNull;
 
 @SpringBootApplication
 public class DemoSpringBootWebApp {
