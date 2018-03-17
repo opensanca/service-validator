@@ -1,9 +1,12 @@
 package io.github.andrelugomes;
 
 import io.github.andrelugomes.annotation.ServiceValidation;
+import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +14,14 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotNull;
 
 @SpringBootApplication
-public class DemoSpringBootWebApp {
+public class DemoSpringBootWebApp implements ApplicationListener<ApplicationReadyEvent> {
     public static void main(String[] args) {
         SpringApplication.run(DemoSpringBootWebApp.class, args);
+    }
+
+    @Override
+    public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
+        Locale.setDefault(Locale.ENGLISH);
     }
 }
 
