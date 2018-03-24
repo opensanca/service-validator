@@ -1,15 +1,15 @@
 package io.github.andrelugomes.aop;
 
-import java.util.Collections;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import io.github.andrelugomes.annotation.ServiceValidation;
+import io.github.andrelugomes.exception.ServiceValidationErrorCollection;
+import io.github.andrelugomes.exception.ServiceValidationException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -20,8 +20,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ServiceValidationAspectImpl {
 
-    public static final String METHOD_ARGUMENTS_CANNOT_BE_NULL = "Method arguments cannot be null!";
-    public static final String VIOLATIONS_MESSAGE = "Model has violations of constraints!";
+    public static final String NULLSAFE_VIOLATION_MESSAGE = "Method arguments cannot be null!";
 
     @Pointcut("@annotation(serviceValidation)")
     public void annotationPointCutDefinition(ServiceValidation serviceValidation){ }
@@ -29,31 +28,40 @@ public class ServiceValidationAspectImpl {
     @Before("annotationPointCutDefinition(serviceValidation)")
     public void valid(JoinPoint joinPoint, ServiceValidation serviceValidation) {
 
+        ServiceValidationErrorCollection errors = new ServiceValidationErrorCollection();
         Object[] args = joinPoint.getArgs();
 
         if(serviceValidation.nullSafe()){
             for (int argIndex = 0; argIndex < args.length; argIndex++) {
 
-                if(args[argIndex] == null)
-                    throw new RuntimeException(METHOD_ARGUMENTS_CANNOT_BE_NULL);
+                if(args[argIndex] == null) {
+                    String valuePath = String.format("args[%s]", argIndex);
+                    errors.addError(valuePath, NULLSAFE_VIOLATION_MESSAGE);
+                }
             }
         }
 
         if(serviceValidation.javaxValidation()){
             for (int argIndex = 0; argIndex < args.length; argIndex++) {
 
-                Set<ConstraintViolation<Object>> violations = Collections.emptySet();
-
                 ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
                 Validator validator = factory.getValidator();
                 Object arg = args[argIndex];
 
-                if (arg != null)
-                    violations = validator.validate(arg);
+                if (arg != null) {
+                    Set<ConstraintViolation<Object>> violations = validator.validate(arg);
+                    if (!violations.isEmpty()) {
+                        for (ConstraintViolation violation : violations) {
+                            String valuePath = String.format("args[%s].%s", argIndex, violation.getPropertyPath());
+                            errors.addError(valuePath, violation.getMessage());
+                        }
+                    }
+                }
 
-                if (!violations.isEmpty())
-                    throw new ConstraintViolationException(VIOLATIONS_MESSAGE, violations);
             }
         }
+
+        if(!errors.isEmpty())
+            throw new ServiceValidationException(errors);
     }
 }

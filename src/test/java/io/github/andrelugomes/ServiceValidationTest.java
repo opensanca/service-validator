@@ -1,13 +1,11 @@
 package io.github.andrelugomes;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-
+import io.github.andrelugomes.aop.ServiceValidationAspectImpl;
+import io.github.andrelugomes.exception.ServiceValidationErrorCollection;
+import io.github.andrelugomes.exception.ServiceValidationException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +22,30 @@ public class ServiceValidationTest {
     @Autowired
     private MyService service;
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test
     public void shouldValidateJavax() {
-
-        component.defaultValidation(new DTO());
+        try {
+            component.defaultValidation(new DTO());
+            fail("Should've thrown ServiceValidationException");
+        } catch (ServiceValidationException ex) {
+            ServiceValidationErrorCollection errors = ex.getErrors();
+            assertThat(errors).hasSize(1);
+            assertThat(errors.get("args[0].text")).hasSize(1);
+            assertThat(errors.get("args[0].text").get(0)).isEqualToIgnoringCase("may not be null");
+        }
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void shouldValidateNullSafe() {
-
-        component.defaultValidation(null);
+        try {
+            component.defaultValidation(null);
+            fail("Should've thrown ServiceValidationException");
+        } catch (ServiceValidationException ex) {
+            ServiceValidationErrorCollection errors = ex.getErrors();
+            assertThat(errors).hasSize(1);
+            assertThat(errors.get("args[0]")).hasSize(1);
+            assertThat(errors.get("args[0]").get(0)).isEqualToIgnoringCase(ServiceValidationAspectImpl.NULLSAFE_VIOLATION_MESSAGE);
+        }
     }
 
     @Test
@@ -73,27 +85,47 @@ public class ServiceValidationTest {
         assertThat(result.getText()).isNull();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void shouldValidateNullForJavaTypes() {
-
-        service.getStringByName(null);
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void shouldValidateNullForMultiplesJavaTypes() {
-
-        service.getLong(null, "2");
+        try {
+            service.getStringByName(null);
+            fail("Should've thrown ServiceValidationException");
+        } catch (ServiceValidationException ex) {
+            ServiceValidationErrorCollection errors = ex.getErrors();
+            assertThat(errors).hasSize(1);
+            assertThat(errors.get("args[0]")).hasSize(1);
+            assertThat(errors.get("args[0]").get(0)).isEqualToIgnoringCase(ServiceValidationAspectImpl.NULLSAFE_VIOLATION_MESSAGE);
+        }
     }
 
     @Test
-    public void shouldVerifyConstraintViolationsOnCatch(){
+    public void shouldValidateNullForMultiplesJavaTypes() {
         try {
-            component.defaultValidation(new DTO());
-        } catch (ConstraintViolationException e) {
-            List<ConstraintViolation> violations = new ArrayList<>(e.getConstraintViolations());
+            service.getLong(null, "2");
+            fail("Should've thrown ServiceValidationException");
+        } catch (ServiceValidationException ex) {
+            ServiceValidationErrorCollection errors = ex.getErrors();
+            assertThat(errors).hasSize(1);
+            assertThat(errors.get("args[0]")).hasSize(1);
+            assertThat(errors.get("args[0]").get(0)).isEqualToIgnoringCase(ServiceValidationAspectImpl.NULLSAFE_VIOLATION_MESSAGE);
+        }
+    }
 
-            assertThat(violations).hasSize(1);
-            assertThat(violations.get(0).getMessage()).isEqualToIgnoringCase("may not be null");
+    @Test
+    public void shouldCombineNullAndJavaxErrors() {
+        try {
+            DTO invalidDTO = new DTO();
+            DTO validDTO = new DTO();
+            validDTO.setText("TEST");
+            service.doSomethingElse(null, invalidDTO, validDTO);
+            fail("Should've thrown ServiceValidationException");
+        } catch (ServiceValidationException ex) {
+            ServiceValidationErrorCollection errors = ex.getErrors();
+            assertThat(errors).hasSize(2);
+            assertThat(errors.get("args[0]")).hasSize(1);
+            assertThat(errors.get("args[0]").get(0)).isEqualToIgnoringCase(ServiceValidationAspectImpl.NULLSAFE_VIOLATION_MESSAGE);
+            assertThat(errors.get("args[1].text")).hasSize(1);
+            assertThat(errors.get("args[1].text").get(0)).isEqualToIgnoringCase("may not be null");
         }
     }
 }
