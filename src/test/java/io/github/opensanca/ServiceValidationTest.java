@@ -1,11 +1,11 @@
-package io.github.andrelugomes;
+package io.github.opensanca;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
-import io.github.andrelugomes.aop.ServiceValidationAspectImpl;
-import io.github.andrelugomes.exception.ServiceValidationErrorCollection;
-import io.github.andrelugomes.exception.ServiceValidationException;
+import io.github.opensanca.aop.ServiceValidationAspectImpl;
+import io.github.opensanca.exception.ServiceValidationErrorCollection;
+import io.github.opensanca.exception.ServiceValidationException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

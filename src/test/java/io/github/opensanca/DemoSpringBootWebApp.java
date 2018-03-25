@@ -1,8 +1,8 @@
-package io.github.andrelugomes;
+package io.github.opensanca;
 
 import javax.validation.constraints.NotNull;
 
-import io.github.andrelugomes.annotation.ServiceValidation;
+import io.github.opensanca.annotation.ServiceValidation;
 import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;

@@ -19,14 +19,14 @@ $ ./mvnw clean install
 
 ```xml
 <dependency>
-    <groupId>io.github.andrelugomes</groupId>
+    <groupId>io.github.opensanca</groupId>
     <artifactId>service-validator</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
 ```groovy
-compile 'io.github.andrelugomes:service-validator:1.0.1'
+compile 'io.github.opensanca:service-validator:1.0.0'
 ```
 
 ### DTO

@@ -1,4 +1,4 @@
-package io.github.andrelugomes.aop;
+package io.github.opensanca.aop;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -9,9 +9,9 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import io.github.andrelugomes.annotation.ServiceValidation;
-import io.github.andrelugomes.exception.ServiceValidationErrorCollection;
-import io.github.andrelugomes.exception.ServiceValidationException;
+import io.github.opensanca.annotation.ServiceValidation;
+import io.github.opensanca.exception.ServiceValidationErrorCollection;
+import io.github.opensanca.exception.ServiceValidationException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;

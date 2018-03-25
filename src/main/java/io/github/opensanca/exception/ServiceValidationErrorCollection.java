@@ -1,4 +1,4 @@
-package io.github.andrelugomes.exception;
+package io.github.opensanca.exception;
 
 import java.util.ArrayList;
 import java.util.HashMap;
