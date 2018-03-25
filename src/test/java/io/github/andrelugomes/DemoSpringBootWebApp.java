@@ -66,6 +66,8 @@ interface MyService {
 
     DTO doSomething(DTO dto);
 
+    void doSomethingElse(DTO dto1, DTO dto2, DTO dto3);
+
     String getStringByName(String name);
 
     Long getLong(Long number, String string);
@@ -82,6 +84,10 @@ class MyServiceImpl implements MyService {
     public DTO doSomething(final DTO dto) {
         return dto;
     }
+
+    @Override
+    @ServiceValidation
+    public void doSomethingElse(DTO dto1, DTO dto2, DTO dto3) {}
 
     @Override
     @ServiceValidation
