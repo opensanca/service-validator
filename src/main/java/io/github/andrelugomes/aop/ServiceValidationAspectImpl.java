@@ -1,5 +1,7 @@
 package io.github.andrelugomes.aop;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -14,6 +16,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -35,8 +38,8 @@ public class ServiceValidationAspectImpl {
             for (int argIndex = 0; argIndex < args.length; argIndex++) {
 
                 if(args[argIndex] == null) {
-                    String valuePath = String.format("args[%s]", argIndex);
-                    errors.addError(valuePath, NULLSAFE_VIOLATION_MESSAGE);
+                    String parameterName = resolveParameterName(joinPoint, argIndex);
+                    errors.addError(parameterName, NULLSAFE_VIOLATION_MESSAGE);
                 }
             }
         }
@@ -51,8 +54,9 @@ public class ServiceValidationAspectImpl {
                 if (arg != null) {
                     Set<ConstraintViolation<Object>> violations = validator.validate(arg);
                     if (!violations.isEmpty()) {
+                        String parameterName = resolveParameterName(joinPoint, argIndex);
                         for (ConstraintViolation violation : violations) {
-                            String valuePath = String.format("args[%s].%s", argIndex, violation.getPropertyPath());
+                            String valuePath = String.format("%s.%s", parameterName, violation.getPropertyPath());
                             errors.addError(valuePath, violation.getMessage());
                         }
                     }
@@ -63,5 +67,15 @@ public class ServiceValidationAspectImpl {
 
         if(!errors.isEmpty())
             throw new ServiceValidationException(errors);
+    }
+
+    private String resolveParameterName(JoinPoint joinPoint, int argIndex) {
+        if (!(joinPoint.getSignature() instanceof MethodSignature)) {
+            return String.format("args[%s]", argIndex);
+        }
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        Method method = signature.getMethod();
+        Parameter[] parameters = method.getParameters();
+        return parameters[argIndex].getType().getSimpleName();
     }
 }

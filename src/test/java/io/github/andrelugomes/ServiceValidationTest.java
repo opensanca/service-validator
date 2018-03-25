@@ -30,8 +30,8 @@ public class ServiceValidationTest {
         } catch (ServiceValidationException ex) {
             ServiceValidationErrorCollection errors = ex.getErrors();
             assertThat(errors).hasSize(1);
-            assertThat(errors.get("args[0].text")).hasSize(1);
-            assertThat(errors.get("args[0].text").get(0)).isEqualToIgnoringCase("may not be null");
+            assertThat(errors.get("DTO.text")).hasSize(1);
+            assertThat(errors.get("DTO.text").get(0)).isEqualToIgnoringCase("may not be null");
         }
     }
 
@@ -43,8 +43,8 @@ public class ServiceValidationTest {
         } catch (ServiceValidationException ex) {
             ServiceValidationErrorCollection errors = ex.getErrors();
             assertThat(errors).hasSize(1);
-            assertThat(errors.get("args[0]")).hasSize(1);
-            assertThat(errors.get("args[0]").get(0)).isEqualToIgnoringCase(ServiceValidationAspectImpl.NULLSAFE_VIOLATION_MESSAGE);
+            assertThat(errors.get("DTO")).hasSize(1);
+            assertThat(errors.get("DTO").get(0)).isEqualToIgnoringCase(ServiceValidationAspectImpl.NULLSAFE_VIOLATION_MESSAGE);
         }
     }
 
@@ -93,8 +93,8 @@ public class ServiceValidationTest {
         } catch (ServiceValidationException ex) {
             ServiceValidationErrorCollection errors = ex.getErrors();
             assertThat(errors).hasSize(1);
-            assertThat(errors.get("args[0]")).hasSize(1);
-            assertThat(errors.get("args[0]").get(0)).isEqualToIgnoringCase(ServiceValidationAspectImpl.NULLSAFE_VIOLATION_MESSAGE);
+            assertThat(errors.get("String")).hasSize(1);
+            assertThat(errors.get("String").get(0)).isEqualToIgnoringCase(ServiceValidationAspectImpl.NULLSAFE_VIOLATION_MESSAGE);
         }
     }
 
@@ -106,8 +106,8 @@ public class ServiceValidationTest {
         } catch (ServiceValidationException ex) {
             ServiceValidationErrorCollection errors = ex.getErrors();
             assertThat(errors).hasSize(1);
-            assertThat(errors.get("args[0]")).hasSize(1);
-            assertThat(errors.get("args[0]").get(0)).isEqualToIgnoringCase(ServiceValidationAspectImpl.NULLSAFE_VIOLATION_MESSAGE);
+            assertThat(errors.get("Long")).hasSize(1);
+            assertThat(errors.get("Long").get(0)).isEqualToIgnoringCase(ServiceValidationAspectImpl.NULLSAFE_VIOLATION_MESSAGE);
         }
     }
 
@@ -122,10 +122,10 @@ public class ServiceValidationTest {
         } catch (ServiceValidationException ex) {
             ServiceValidationErrorCollection errors = ex.getErrors();
             assertThat(errors).hasSize(2);
-            assertThat(errors.get("args[0]")).hasSize(1);
-            assertThat(errors.get("args[0]").get(0)).isEqualToIgnoringCase(ServiceValidationAspectImpl.NULLSAFE_VIOLATION_MESSAGE);
-            assertThat(errors.get("args[1].text")).hasSize(1);
-            assertThat(errors.get("args[1].text").get(0)).isEqualToIgnoringCase("may not be null");
+            assertThat(errors.get("DTO")).hasSize(1);
+            assertThat(errors.get("DTO").get(0)).isEqualToIgnoringCase(ServiceValidationAspectImpl.NULLSAFE_VIOLATION_MESSAGE);
+            assertThat(errors.get("DTO.text")).hasSize(1);
+            assertThat(errors.get("DTO.text").get(0)).isEqualToIgnoringCase("may not be null");
         }
     }
 }
