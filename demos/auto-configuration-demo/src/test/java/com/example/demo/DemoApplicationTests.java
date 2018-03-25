@@ -1,13 +1,17 @@
 package com.example.demo;
 
+import com.example.demo.component.MyComponent;
+import com.example.demo.dto.DTO;
+import com.example.demo.service.MyService;
+import io.github.opensanca.exception.ServiceValidationException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
+@RunWith(SpringRunner.class)
 public class DemoApplicationTests {
 
 	@Autowired
@@ -16,13 +20,13 @@ public class DemoApplicationTests {
 	@Autowired
 	private MyService service;
 
-	@Test(expected = RuntimeException.class)
+	@Test(expected = ServiceValidationException.class)
 	public void shouldValidateWithAInterfaceProxy() {
 
 		service.doSomething(new DTO());
 	}
 
-	@Test(expected = RuntimeException.class)
+	@Test(expected = ServiceValidationException.class)
 	public void shouldValidateWithAComponent() {
 
 		component.doSomething(new DTO());
