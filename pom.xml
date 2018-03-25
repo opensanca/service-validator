@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.opensanca</groupId>
     <artifactId>service-validator</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>Service Validator</name>
     <description>
@@ -21,7 +21,7 @@
         <url>git@github.com:opensanca/service-validator.git</url>
         <connection>scm:git:git@github.com:opensanca/service-validator.git</connection>
         <developerConnection>scm:git:git@github.com:opensanca/service-validator.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>1.0.0</tag>
     </scm>
     <licenses>
         <license>
