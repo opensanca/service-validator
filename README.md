@@ -1,13 +1,8 @@
 # Service Validation
 
-NullSafe and DTO validation for Javax Validation in service layer using Aspect.
+NullSafe and DTO validation for Bean Validation in service layer using Aspect.
 
-## Spring Boot projects
 
-Service Validation provides a `ServiceValidationAutoConfiguration.class` that allowed Auto Configuration mechanism.
-
->Spring Boot auto-configuration attempts to automatically configure your Spring application based on the jar dependencies that you have added. 
-><cite>https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-auto-configuration.html</cite> 
 
 ## Build and Install
 
@@ -15,7 +10,7 @@ Service Validation provides a `ServiceValidationAutoConfiguration.class` that al
 $ ./mvnw clean install
 ```
 
-## Dependency
+## How to use
 
 ```xml
 <dependency>
@@ -28,8 +23,67 @@ $ ./mvnw clean install
 ```groovy
 compile 'io.github.opensanca:service-validator:1.0.0'
 ```
+### Spring Boot projects
+ 
+Service Validation provides a `ServiceValidationAutoConfiguration.class` that allowed Auto Configuration mechanism.
+ 
+ >Spring Boot auto-configuration attempts to automatically configure your Spring application based on the jar dependencies that you have added. 
+ ><cite>https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-auto-configuration.html</cite> 
 
-### DTO
+### Non Spring Boot projects
+
+Service Validation provides a `ServiceValidatorImport.class` that allowed easy way configure it.
+
+```java
+@ComponentScan(basePackages={"seu.pacote","io.github.opensanca"})
+```
+OR
+```java
+@Configuration
+@ComponentScan
+@Import(ServiceValidatorImport.class)
+public class AppConfig {
+    //...
+}
+```
+ 
+### Extra configgurations
+
+Because we use Bean Validation 1.1 [JSR 349](http://beanvalidation.org/1.1/), you have to add some provider for this especification 
+like `Hibernate Validator` ou `Apache BVal`.
+
+The absence of providers cause this erros in Spring context startup.
+
+```bazaar
+javax.validation.ValidationException: 
+Unable to create a Configuration, because no Bean Validation provider could be found. 
+Add a provider like Hibernate Validator (RI) to your classpath.
+```
+OR
+
+```bazaar
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Bean Validation API is on the classpath but no implementation could be found
+
+Action:
+
+Add an implementation, such as Hibernate Validator, to the classpath
+```
+
+Additionally, some providers of Bean Validation uses Expression Language API, causing erros in Spring context startup too.
+
+```bazaar
+Caused by: javax.validation.ValidationException: HV000183: Unable to initialize 'javax.el.ExpressionFactory'. 
+Check that you have the EL dependencies on the classpath, or use ParameterMessageInterpolator instead
+```
+We recommended to use  `Glassfish Web EL Implementation`
+
+## Samples
 
 ```java
 public class DTO {
@@ -49,10 +103,7 @@ public class DTO {
     }
 }
 ```
-### Usage
-
 Validate Javax Validations Constraints and NullSafe.
-
 ```java
 @Component
 public class MyComponent {
@@ -63,9 +114,7 @@ public class MyComponent {
     }
 }
 ```
-
 Validate Javax Validations Constraints only.
-
 ```java
 @Component
 public class MyComponent {
@@ -77,7 +126,6 @@ public class MyComponent {
 }
 ```
 Validate NullSafe arguments only.
-
 ```java
 @Component
 public class MyComponent {
@@ -89,7 +137,7 @@ public class MyComponent {
 }
 ```
 
-### Don't do this! ¬¬
+#### Don't do this! ¬¬
 
 ```java
 @Component
