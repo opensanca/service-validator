@@ -1,9 +1,11 @@
 package io.github.opensanca;
 
+import java.util.Locale;
+
 import javax.validation.constraints.NotNull;
 
 import io.github.opensanca.annotation.ServiceValidation;
-import java.util.Locale;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,6 +31,7 @@ public class DemoSpringBootWebApp implements ApplicationListener<ApplicationRead
 class DTO {
 
     @NotNull
+    @NotEmpty
     private String text;
 
     public void setText(String text) {
