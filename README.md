@@ -47,12 +47,13 @@ public class AppConfig {
 }
 ```
  
-### Extra configgurations
+### Extra configurations
 
-Because we use Bean Validation 1.1 [JSR 349](http://beanvalidation.org/1.1/), you have to add some provider for this especification 
-like `Hibernate Validator` ou `Apache BVal`.
+Because we use Bean Validation 1.1 [JSR 349](http://beanvalidation.org/1.1/), you have to ensure there is a
+provider for this specification available in your classpath, such as `Hibernate Validator` or `Apache BVal`. Note that if you are
+using a JEE-compliant application server like `WildFly` or `TomEE` you already have one.
 
-The absence of providers cause this erros in Spring context startup.
+The absence of providers cause this error during Spring context startup:
 
 ```bazaar
 javax.validation.ValidationException: 
@@ -75,13 +76,15 @@ Action:
 Add an implementation, such as Hibernate Validator, to the classpath
 ```
 
-Additionally, some providers of Bean Validation uses Expression Language API, causing erros in Spring context startup too.
+Additionally, some Bean Validation providers may have dependencies of their own, like the Expression Language API,
+causing similar bootstrap errors like the following:
 
 ```bazaar
 Caused by: javax.validation.ValidationException: HV000183: Unable to initialize 'javax.el.ExpressionFactory'. 
 Check that you have the EL dependencies on the classpath, or use ParameterMessageInterpolator instead
 ```
-We recommended to use  `Glassfish Web EL Implementation`
+We recommended to use `Glassfish Web EL Implementation` in this case. Note that EL is also part of the JEE stack,
+so you can safely ignore this if you're running a full-fledged application server.
 
 ## Samples
 
