@@ -2,14 +2,11 @@
 
 NullSafe and DTO validation for Bean Validation in service layer using Aspect.
 
-
-
 ## Build and Install
 
 ```bash
 $ ./mvnw clean install
 ```
-
 ## How to use
 
 ```xml
@@ -60,6 +57,7 @@ javax.validation.ValidationException:
 Unable to create a Configuration, because no Bean Validation provider could be found. 
 Add a provider like Hibernate Validator (RI) to your classpath.
 ```
+
 OR
 
 ```bazaar
@@ -83,6 +81,7 @@ causing similar bootstrap errors like the following:
 Caused by: javax.validation.ValidationException: HV000183: Unable to initialize 'javax.el.ExpressionFactory'. 
 Check that you have the EL dependencies on the classpath, or use ParameterMessageInterpolator instead
 ```
+
 We recommended to use `Glassfish Web EL Implementation` in this case. Note that EL is also part of the JEE stack,
 so you can safely ignore this if you're running a full-fledged application server.
 
