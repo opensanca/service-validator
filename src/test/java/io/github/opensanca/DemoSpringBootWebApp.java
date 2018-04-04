@@ -10,7 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @SpringBootApplication
 public class DemoSpringBootWebApp implements ApplicationListener<ApplicationReadyEvent> {
@@ -100,4 +102,21 @@ class MyServiceImpl implements MyService {
     public Long getLong(Long number, String string) {
         return number + Long.valueOf(string);
     }
+}
+
+@Controller
+class MyController {
+
+    @Autowired
+    private MyService service;
+
+    @GetMapping("/test")
+    public void test() {
+        DTO dto1 = null;
+        DTO dto2 = new DTO();
+        DTO dto3 = new DTO();
+        dto3.setText("TEST");
+        this.service.doSomethingElse(dto1, dto2, dto3);
+    }
+
 }

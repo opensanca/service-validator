@@ -2,15 +2,22 @@ package io.github.opensanca;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 import io.github.opensanca.aop.ServiceValidationAspectImpl;
 import io.github.opensanca.exception.ServiceValidationErrorCollection;
 import io.github.opensanca.exception.ServiceValidationException;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -21,6 +28,16 @@ public class ServiceValidationTest {
 
     @Autowired
     private MyService service;
+
+    @Autowired
+    private WebApplicationContext ctx;
+
+    private MockMvc mockMvc;
+
+    @Before
+    public void setup() {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.ctx).build();
+    }
 
     @Test
     public void shouldValidateJavax() {
@@ -128,6 +145,17 @@ public class ServiceValidationTest {
             assertThat(errors.get("DTO.text").get(0)).isEqualToIgnoringCase("may not be null");
         }
     }
+
+    @Test
+    public void shouldJsonifyServiceValidationException() throws Exception {
+        this.mockMvc.perform(get("/test"))
+            .andExpect(status().isBadRequest())
+            .andExpect(jsonPath("DTO").isArray())
+            .andExpect(jsonPath("DTO[0]").value(ServiceValidationAspectImpl.NULLSAFE_VIOLATION_MESSAGE))
+            .andExpect(jsonPath("$['DTO.text']").isArray())
+            .andExpect(jsonPath("$['DTO.text'][0]").value("may not be null"));
+    }
+
 }
 
 

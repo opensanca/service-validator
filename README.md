@@ -152,3 +152,9 @@ public class MyComponent {
 }
 ```
 
+## Spring MVC
+
+There is an `@ExceptionHandler` bundled in this library that automatically
+translates `ServiceValidatorException`'s to JSON. So you don't need to bother
+writing your own should you decide to leverage this exception as an interface
+with your API clients.
