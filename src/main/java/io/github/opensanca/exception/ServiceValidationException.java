@@ -10,7 +10,7 @@ public class ServiceValidationException extends RuntimeException {
 
     private ServiceValidationErrorCollection errors;
 
-    public ServiceValidationException(ServiceValidationErrorCollection errors) {
+    public ServiceValidationException(final ServiceValidationErrorCollection errors) {
         this.errors = errors;
     }
 

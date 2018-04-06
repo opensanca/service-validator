@@ -26,25 +26,25 @@ public class ServiceValidationAspectImpl {
     public static final String NULLSAFE_VIOLATION_MESSAGE = "Method arguments cannot be null!";
 
     @Pointcut("@annotation(serviceValidation)")
-    public void annotationPointCutDefinition(ServiceValidation serviceValidation){ }
+    public void annotationPointCutDefinition(final ServiceValidation serviceValidation) { }
 
     @Before("annotationPointCutDefinition(serviceValidation)")
-    public void valid(JoinPoint joinPoint, ServiceValidation serviceValidation) {
+    public void valid(final JoinPoint joinPoint, final ServiceValidation serviceValidation) {
 
         ServiceValidationErrorCollection errors = new ServiceValidationErrorCollection();
         Object[] args = joinPoint.getArgs();
 
-        if(serviceValidation.nullSafe()){
+        if (serviceValidation.nullSafe()) {
             for (int argIndex = 0; argIndex < args.length; argIndex++) {
 
-                if(args[argIndex] == null) {
+                if (args[argIndex] == null) {
                     String parameterName = resolveParameterName(joinPoint, argIndex);
                     errors.addError(parameterName, NULLSAFE_VIOLATION_MESSAGE);
                 }
             }
         }
 
-        if(serviceValidation.javaxValidation()){
+        if (serviceValidation.javaxValidation()) {
             for (int argIndex = 0; argIndex < args.length; argIndex++) {
 
                 ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -65,11 +65,12 @@ public class ServiceValidationAspectImpl {
             }
         }
 
-        if(!errors.isEmpty())
+        if (!errors.isEmpty()) {
             throw new ServiceValidationException(errors);
+        }
     }
 
-    private String resolveParameterName(JoinPoint joinPoint, int argIndex) {
+    private String resolveParameterName(final JoinPoint joinPoint, final int argIndex) {
         if (!(joinPoint.getSignature() instanceof MethodSignature)) {
             return String.format("args[%s]", argIndex);
         }
