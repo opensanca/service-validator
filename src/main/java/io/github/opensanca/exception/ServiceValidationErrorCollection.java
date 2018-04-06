@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ServiceValidationErrorCollection extends HashMap<String, List<String>> {
 
-    public void addError(String valuePath, String errorMessage) {
+    public void addError(final String valuePath, final String errorMessage) {
         if (!containsKey(valuePath)) {
             put(valuePath, new ArrayList<>());
         }
