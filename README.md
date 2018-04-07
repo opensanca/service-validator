@@ -183,9 +183,7 @@ public class CoolTest {
         exception.expect(errorCollectionHasSize(1));
         exception.expect(errorCollectionHasViolation("DTO.text", "may not be null"));
         exception.expect(errorCollectionHasViolation("DTO.text", "may not be empty"));
-
         //
     }
 }
 ```
-
