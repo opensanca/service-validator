@@ -155,6 +155,35 @@ public class MyComponent {
 ## Spring MVC
 
 There is an `@ExceptionHandler` bundled in this library that automatically
-translates `ServiceValidatorException`'s to JSON. So you don't need to bother
+translates `ServiceValidationException`'s to JSON. So you don't need to bother
 writing your own should you decide to leverage this exception as an interface
 with your API clients.
+
+## Testing Violations
+
+ServiceValidator provides custom `org.hamcrest.Matchers` that allowed testing violations of 
+`ServiceValidationErrorCollection.class`.
+
++ errorCollectionHasSize
++ errorCollectionHasViolation
+
+```java
+import static io.github.opensanca.matchers.ServiceValidatorErrorMatcher.errorCollectionHasSize;
+import static io.github.opensanca.matchers.ServiceValidatorViolationsMatcher.errorCollectionHasViolation;
+
+@RunWith(SpringRunner.class)
+public class CoolTest {
+    
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
+
+    @Test
+    public void someCoolTest() {
+        exception.expect(ServiceValidationException.class);
+        exception.expect(errorCollectionHasSize(1));
+        exception.expect(errorCollectionHasViolation("DTO.text", "may not be null"));
+        exception.expect(errorCollectionHasViolation("DTO.text", "may not be empty"));
+        //
+    }
+}
+```
