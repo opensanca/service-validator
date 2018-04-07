@@ -13,7 +13,7 @@ public class ServiceValidatorExceptionHandlerController {
 
     @ExceptionHandler(ServiceValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public @ResponseBody ServiceValidationErrorCollection handleException(ServiceValidationException ex) {
+    public @ResponseBody ServiceValidationErrorCollection handleException(final ServiceValidationException ex) {
         return ex.getErrors();
     }
 
