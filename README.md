@@ -4,6 +4,8 @@ NullSafe and DTO validation for Bean Validation in service layer using Aspect.
 
 ## Build and Install
 
+[![Build Status](https://travis-ci.org/opensanca/service-validator.svg?branch=master)](https://travis-ci.org/opensanca/service-validator)
+
 ```bash
 $ ./mvnw clean install
 ```
