@@ -1,14 +1,5 @@
 package io.github.opensanca.aop;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-
 import io.github.opensanca.annotation.ServiceValidation;
 import io.github.opensanca.exception.ServiceValidationErrorCollection;
 import io.github.opensanca.exception.ServiceValidationException;
@@ -19,11 +10,21 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.Set;
+
 @Aspect
 @Component
 public class ServiceValidationAspectImpl {
 
     public static final String NULLSAFE_VIOLATION_MESSAGE = "Method arguments cannot be null!";
+
+    public ServiceValidationAspectImpl() { }
 
     @Pointcut("@annotation(serviceValidation)")
     public void annotationPointCutDefinition(final ServiceValidation serviceValidation) { }

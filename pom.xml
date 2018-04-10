@@ -60,6 +60,7 @@
         <validation-api.version>1.1.0.Final</validation-api.version>
         <el-api.version>2.2</el-api.version>
         <el-impl.version>2.2</el-impl.version>
+        <mockito-all.version>1.10.19</mockito-all.version>
     </properties>
     <dependencies>
         <dependency>
@@ -115,6 +116,13 @@
             <version>${el-impl.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito-all.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
@@ -189,7 +197,6 @@
                             <encoding>UTF-8</encoding>
                             <consoleOutput>true</consoleOutput>
                             <failsOnError>true</failsOnError>
-                            <linkXRef>false</linkXRef>
                         </configuration>
                         <goals>
                             <goal>check</goal>
