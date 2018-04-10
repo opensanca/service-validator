@@ -15,12 +15,12 @@ $ ./mvnw clean install
 <dependency>
     <groupId>io.github.opensanca</groupId>
     <artifactId>service-validator</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
 ```groovy
-compile 'io.github.opensanca:service-validator:1.0.0'
+compile 'io.github.opensanca:service-validator:1.1.0'
 ```
 ### Spring Boot projects
  
