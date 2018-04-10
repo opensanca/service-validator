@@ -212,6 +212,9 @@
                     <linkXRef>false</linkXRef>
                     <failOnViolation>true</failOnViolation>
                     <printFailingErrors>true</printFailingErrors>
+                    <rulesets>
+                        <ruleset>/category/java/bestpractices.xml</ruleset>
+                    </rulesets>
                 </configuration>
                 <executions>
                     <execution>
