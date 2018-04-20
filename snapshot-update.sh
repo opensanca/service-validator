@@ -1,7 +1,6 @@
 #!/bin/bash
 
 commands=(
-  "./mvnw clean test"
   "./demos/spring-boot-auto-configuration-demo/mvnw test -f demos/spring-boot-auto-configuration-demo"
   "./demos/spring-boot-web-auto-configuration-demo/mvnw test -f demos/spring-boot-web-auto-configuration-demo"
   "./demos/spring-5-hibernate-validator-demo/gradlew -p demos/spring-5-hibernate-validator-demo test"
